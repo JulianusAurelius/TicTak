@@ -1,0 +1,128 @@
+import random
+
+board = [[None, None, None],
+        [None, None, None],
+        [None, None, None]]
+#9 variables, one for each box. True is if it is taken by the AI, false is if it is taken by the player
+
+#x in this check will check if that box is not claimed by a player or AI
+def check_single_box(x):
+    if 0 <= x <= 2:
+        if board[0][x] == None:
+            return True
+    elif 3 <= x <= 5:
+        if board[1][x-3] == None:
+            return True
+    elif 6 <= x <= 8:
+        if board[2][x-6] == None:
+            return True
+    else:
+        return False
+
+
+#checks to see if the board is empty, returns true if it is
+def check_board_empty():
+    for rows in board:
+        for squares in rows:
+            if squares != None:
+                return False
+    return True
+
+
+
+#Checks to see if there is a winning combination, and returns the value of the winning player,
+#True for AI, False for Player. If no one wins, it returns None
+def winning_combinations():
+    if board[0][0] == board[0][1] == board[0][2]:
+        return board[0][0]
+    elif board[1][0] == board[1][1] == board[1][2]:
+        return board[1][0]
+    elif board[2][0] == board[2][1] == board[2][2]:
+        return board[2][0]
+    elif board[0][0] == board[1][0] == board[2][0]:
+        return board[0][0]
+    elif board[0][1] == board[1][1] == board[2][1]:
+        return board[0][1]
+    elif board[0][2] == board[1][2] == board[2][2]:
+        return board[0][2]
+    elif board[0][0] == board[1][1] == board[2][2]:
+        return board[0][0]
+    elif board[0][2] == board[1][1] == board[2][0]:
+        return board[0][2]
+
+
+
+
+#Checks to see if there are two in a row, and this function, if true, gives the block number to block the win
+def block_win():
+    failure = random.randint(1,51)
+    if failure != 50: #Since a perfect AI is not fun, there is a 2% chance the AI will make a mistake and not see the two in a row
+        if board[0][0] == board[0][1] and board[0][2] == None: #012 horiz
+            return 2
+        elif board[0][1] == board[0][2] and board[0][0] == None: #210
+            return 0
+        elif board[1][0] == board[1][1] and board[1][2] == None: #345
+            return 5
+        elif board[1][1] == board[1][2] and board[1][0] == None: #543
+            return 3
+        elif board[2][0] == board[2][1] and board[2][2] == None: #678
+            return 8
+        elif board[2][2] == board[2][1] and board[2][0] == None: #876
+            return 6
+        elif board[0][0] == board[0][2] and board[0][1] == None: #021
+            return 1
+        elif board[1][0] == board[1][2] and board[1][1] == None: #354
+            return 4
+        elif board[2][0] == board[2][2] and board[2][1] == None: #687
+            return 7
+        elif board[0][0] == board[1][0] and board[2][0] == None: #036 vert
+            return 6
+        elif board[0][1] == board[1][1] and board[2][1] == None: #147
+            return 7
+        elif board[0][2] == board[1][2] and board[2][2] == None: #258
+            return 8
+        elif board[2][0] == board[1][0] and board[0][0] == None: #630
+            return 0
+        elif board[2][1] == board[1][1] and board[0][1] == None: #741
+            return 1
+        elif board[2][2] == board[1][2] and board[0][2] == None: #852
+            return 2
+        elif board[2][0] == board[0][0] and board[1][0] == None: #603
+            return 3
+        elif board[2][1] == board[0][1] and board[1][1] == None: #714
+            return 4
+        elif board[2][2] == board[0][2] and board[1][2] == None: #825
+            return 5
+        elif board[0][0] == board[1][1] and board[2][2] == None: #048 diag
+            return 2
+        elif board[2][2] == board[1][1] and board[0][0] == None: #840
+            return 0
+        elif board[2][2] == board[0][0] and board[1][1] == None: #804
+            return 4
+        elif board[2][0] == board[1][1] and board[0][2] == None: #642
+            return 2
+        elif board[0][2] == board[1][1] and board[2][0] == None: #246
+            return 6
+        elif board[2][0] == board[0][2] and board[1][1] == None: #624
+            return 4
+    else:
+        return False
+
+#Checks to see if the board is full
+def is_full():
+    for row in board:
+        for square in row:
+            if square == None:
+                return False
+    return True
+
+def choose_move():
+    score = board
+    for row in score:
+        for square in row:
+            if square == None:
+                x = 0
+
+
+
+
