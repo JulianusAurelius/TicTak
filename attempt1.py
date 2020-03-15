@@ -110,11 +110,11 @@ while (is_full() == False):
     if winning_combinations() != None:
         break
     elif block_win() != None:
-        #Output = block_win()
-        #Input 
+        board[block_win()] = True
     else:
-        #Output = choose_move()
+        board[block_win()] = True
     break #this is if you press run, without input output, the computer will run this forever right now
+    board[false] = False
 
 
 if winning_combinations() != None:
